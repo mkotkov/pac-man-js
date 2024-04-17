@@ -1,0 +1,36 @@
+body{
+  background: black;
+}
+
+.map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+    width: 100%;
+}
+
+.wall {
+  fill: blue;
+}
+
+.empty {
+  fill: white;
+}
+
+.pacman {
+  fill: gold;
+}
+
+.ghost {
+   fill: red;
+}
+
+.dot {
+   fill: #ffcc00;
+}
+
+.coin{
+  fill: #ffcc00;
+}
+
