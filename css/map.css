@@ -1,36 +1,43 @@
 body{
-  background: black;
+  background: rgb(22, 15, 41);
 }
 
 .map {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 25px auto;
+    margin: 15px auto;
     width: 100%;
 }
 
 .wall {
-  fill: blue;
+  fill: #9133ec;
 }
 
 .empty {
   fill: white;
 }
 
-.pacman {
-  fill: gold;
+.walls, .pacman {
+  position: absolute;
+  top: 80px;
 }
+
+.pacman {
+  fill: #ffb802;
+}
+
 
 .ghost {
-   fill: red;
+   fill: #cb61e6;
 }
 
+
 .dot {
-   fill: #ffcc00;
+   fill: #ebbf6f;
 }
 
 .coin{
-  fill: #ffcc00;
+  fill: gold;
 }
 
