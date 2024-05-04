@@ -27,129 +27,146 @@ const Pacman_MAP = [
 
 const object = ['wall', 'dot', 'empty', 'ghost', 'coin', 'pacman', 'super'];
 
+// Create SVG element and append it to the map div
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const cellSize = (screenWidth / screenHeight) * 25;
+const radius = cellSize / 4;
+screen.innerHTML = '';
+
+// Create a div for the map
+const mapDiv = document.createElement('div');
+mapDiv.classList.add('map');
+screen.appendChild(mapDiv);
+
+
 function renderMap(map) {
-    // Очищаем экран
-    screen.innerHTML = '';
+    // Clear the screen
+    const svgMap = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgMap.classList.add('walls');
+    svgMap.setAttribute("width", cellSize * map[0].length);
+    svgMap.setAttribute("height", cellSize * map.length);
+    mapDiv.appendChild(svgMap);
 
-    // Создаем div для карты
-    const mapDiv = document.createElement('div');
-    mapDiv.classList.add('map');
-    screen.appendChild(mapDiv);
+    // Create group for cells map
+    const cellsGroupMap = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    cellsGroupMap.classList.add('cells');
+    svgMap.appendChild(cellsGroupMap);
 
-    // Создаем SVG элемент и добавляем его к div для карты
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const cellSize = (screenWidth / screenHeight) * 7;
-    const radius = cellSize / 4;
-
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", cellSize * map[0].length);
-    svg.setAttribute("height", cellSize * map.length);
-    mapDiv.appendChild(svg);
-
-    // Создаем группу для ячеек
-    const cellsGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    cellsGroup.classList.add('cells');
-    svg.appendChild(cellsGroup);
-
-    // Создаем прямоугольники и круги для каждой ячейки
+    // Create rectangles and circles for each cell
     for (let i = 0; i < map.length; i++) {
         const row = map[i];
         for (let j = 0; j < row.length; j++) {
             const cell = row[j];
             const x = j * cellSize;
             const y = i * cellSize;
-            // render 'wall'
-            if (cell === 0) {
-                const cellElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                cellElement.setAttribute("class", `cell ${object[cell]}`);
-                cellElement.setAttribute("x", x);
-                cellElement.setAttribute("y", y);
-                cellElement.setAttribute("width", cellSize);
-                cellElement.setAttribute("height", cellSize);
-                cellsGroup.appendChild(cellElement);
-            }
+            
+            switch(cell){
 
-            // render 'dot' 
-            else if (cell === 1) {
-                const cellElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                cellElement.setAttribute("class", `cell ${object[cell]}`);
-                const cx = x + radius * 2;
-                const cy = y + radius * 2;
-                cellElement.setAttribute("cx", cx);
-                cellElement.setAttribute("cy", cy);
-                cellElement.setAttribute("r", radius / 2.5);
-                cellsGroup.appendChild(cellElement);
-            }
+                // render 'wall' 
+                case 0:
+                    const cellElementWall = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    cellElementWall.setAttribute("class", `cell ${object[cell]}`);
+                    cellElementWall.setAttribute("x", x);
+                    cellElementWall.setAttribute("y", y);
+                    cellElementWall.setAttribute("width", cellSize);
+                    cellElementWall.setAttribute("height", cellSize);
+                    cellsGroupMap.appendChild(cellElementWall);
+                    break;
+                    // render 'dot' 
+                case 1:
+                    const cellElementDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    cellElementDot.setAttribute("class", `cell ${object[cell]}`);
+                    const dotCx = x + radius * 2; // Изменение названия переменной cx на dotCx
+                    const dotCy = y + radius * 2; // Изменение названия переменной cy на dotCy
+                    cellElementDot.setAttribute("cx", dotCx);
+                    cellElementDot.setAttribute("cy", dotCy);
+                    cellElementDot.setAttribute("r", radius / 2.5);
+                    cellsGroupMap.appendChild(cellElementDot);
+                    break;
+                    
 
-            // render 'empty' 
-            else if (cell === 2) {
-                // Do nothing for empty cell
-            }
+                // render 'empty' 
+                case 2:
+                    // Do nothing for empty cell
+                    break;
 
-            // render 'ghost' 
-            else if (cell === 3) {
-                const cellElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                cellElement.setAttribute("class", `cell ${object[cell]}`);
-                const cx = x + radius * 2;
-                const cy = y + radius * 2;
-                cellElement.setAttribute("cx", cx);
-                cellElement.setAttribute("cy", cy);
-                cellElement.setAttribute("r", radius * 1.5);
-                cellsGroup.appendChild(cellElement);
+                // render 'coin' 
+                case 4:
+                    const cellElementCoin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    cellElementCoin.setAttribute("class", `cell ${object[cell]}`);
+                    const coinCx = x + radius * 2;
+                    const coinCy = y + radius * 2;
+                    cellElementCoin.setAttribute("cx", coinCx);
+                    cellElementCoin.setAttribute("cy", coinCy);
+                    cellElementCoin.setAttribute("r", radius * 1.2);
+                    cellsGroupMap.appendChild(cellElementCoin);
+                    break;
             }
+        }
+    }
+}
 
-            // render 'coin' 
-            else if (cell === 4) {
-                const cellElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                cellElement.setAttribute("class", `cell ${object[cell]}`);
-                const cx = x + radius * 2;
-                const cy = y + radius * 2;
-                cellElement.setAttribute("cx", cx);
-                cellElement.setAttribute("cy", cy);
-                cellElement.setAttribute("r", radius * 1.2);
-                cellsGroup.appendChild(cellElement);
-            }
+function renderPacman(map) {
 
-            // render 'pacman' 
-            else if (cell === 5) {
+    const svgPacman = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgPacman.classList.add('pacman');
+    svgPacman.setAttribute("width", cellSize * map[0].length);
+    svgPacman.setAttribute("height", cellSize * map.length);
+    mapDiv.appendChild(svgPacman);
+
+    // Create group for cells 
+    const cellsGroupPacman = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    cellsGroupPacman.classList.add('cellsPacman');
+    svgPacman.appendChild(cellsGroupPacman);
+
+  
+    // Create rectangles and circles for each cell
+    for (let i = 0; i < map.length; i++) {
+        const row = map[i];
+        for (let j = 0; j < row.length; j++) {
+            const cell = row[j];
+            const x = j * cellSize;
+            const y = i * cellSize;
+            
+            if (cell === 5) {
                 const cx = x + radius * 2;
                 const cy = y + radius * 2;
                 const rectSize = radius * 2;
                 let openTop = 40;
                 let openBottom = 140;
                 let lastTimestamp = null;
-                const animationInterval = 6500 / 60; // Примерно 60 кадров в секунду
+                const animationInterval = 6500 / 60; // Roughly 60 frames per second
 
                 function animatePacman(timestamp) {
                     if (!lastTimestamp) lastTimestamp = timestamp;
                     const deltaTime = timestamp - lastTimestamp;
             
-                    // Если прошло достаточное количество времени для следующего кадра
+                    // If enough time has passed for the next frame
                     if (deltaTime >= animationInterval) {
-                        // Устанавливаем углы открытия и закрытия рта
-                        openTop = openTop === 40 ? 0: 40; // Если рот открыт, закрыть, и наоборот
-                        openBottom = openBottom === 140 ? 180 : 140;
+                        // Set opening and closing angles of mouth
+                        openTop = openTop === 40 ? 0: 40; // If mouth is open, close it, and vice versa
+                        openBottom = openBottom === 140 ? 170 : 140;
             
-                        // Устанавливаем атрибуты transform для верхней и нижней части Пакмана
+                        // Set transform attributes for top and bottom part of Pacman
                         topPack.setAttribute("transform", `rotate(${openTop}, ${cx}, ${cy})`);
                         bottomPack.setAttribute("transform", `rotate(${openBottom}, ${cx}, ${cy})`);
             
-                        // Обновляем метку времени последнего кадра
+                        // Update last frame timestamp
                         lastTimestamp = timestamp;
                     }
             
-                    // Запрашиваем следующий кадр
+                    // Request next frame
                     requestAnimationFrame(animatePacman);
                 }
             
-                // Запускаем анимацию
+                // Start animation
                 requestAnimationFrame(animatePacman);
 
                 // Creating mask for top half of Pacman
                 const maskTop = document.createElementNS("http://www.w3.org/2000/svg", "mask");
                 maskTop.setAttribute("id", `maskTop-${object[cell]}`);
-                cellsGroup.appendChild(maskTop);
+                cellsGroupPacman.appendChild(maskTop);
                 
                 // Rectangle inside the mask to control the size
                 const maskTopRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -168,12 +185,12 @@ function renderMap(map) {
                 topPack.setAttribute("r", radius * 1.8);
                 topPack.setAttribute("mask", `url(#maskTop-${object[cell]})`);
                 topPack.setAttribute("transform", `rotate(${openTop}, ${cx}, ${cy})`);
-                cellsGroup.appendChild(topPack);
+                cellsGroupPacman.appendChild(topPack);
             
                 // Creating mask for bottom half of Pacman
                 const maskBottom = document.createElementNS("http://www.w3.org/2000/svg", "mask");
                 maskBottom.setAttribute("id", `maskBottom-${object[cell]}`);
-                cellsGroup.appendChild(maskBottom);
+                cellsGroupPacman.appendChild(maskBottom);
             
                 // Rectangle inside the mask to control the size
                 const maskBottomRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -192,28 +209,16 @@ function renderMap(map) {
                 bottomPack.setAttribute("r", radius * 1.8);
                 bottomPack.setAttribute("mask", `url(#maskBottom-${object[cell]})`);
                 bottomPack.setAttribute("transform", `rotate(${openBottom}, ${cx}, ${cy})`);
-                cellsGroup.appendChild(bottomPack);              
+                cellsGroupPacman.appendChild(bottomPack);              
                 
             }
-            
 
-            // render 'super' 
-            else if (cell === 6) {
-                const cellElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                cellElement.setAttribute("class", `cell ${object[cell]}`);
-                const cx = x + radius * 2;
-                const cy = y + radius * 2;
-                cellElement.setAttribute("cx", cx);
-                cellElement.setAttribute("cy", cy);
-                cellElement.setAttribute("r", radius);
-                cellsGroup.appendChild(cellElement);
-            }
         }
     }
 }
 
 
-
-
 // Showing map
 renderMap(Pacman_MAP);
+
+renderPacman(Pacman_MAP);
