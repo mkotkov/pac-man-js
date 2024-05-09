@@ -2,12 +2,13 @@ body{
   background: rgb(22, 15, 41);
 }
 
-.map {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px auto;
-    width: 100%;
+.level {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto;
+  height: 100%;
 }
 
 .wall {
@@ -18,9 +19,8 @@ body{
   fill: white;
 }
 
-.walls, .pacman {
+.map{
   position: absolute;
-  top: 80px;
 }
 
 .pacman {

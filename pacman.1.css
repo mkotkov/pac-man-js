@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'ArcadeClassic';
+  src: url('assets/ArcadeClassic.woff2') format('woff2'),
+      url('assets/ArcadeClassic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  font-family: 'ArcadeClassic';
+  letter-spacing: .1rem;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.game {
+  position: relative;
+  width: fit-content;
+  background-color: black;
+}
+.shade{
+  position: absolute;
+  z-index: 1;
+  width: 12%;
+  height: 4.7%;
+  background: #000;
+}
+.shade:first-of-type{
+  background: linear-gradient(to left, rgba(0,0,0,0) 10%, #000 30%);
+ top: 38.3%; 
+ left: -10%;
+}
+.shade:nth-of-type(2){
+  background: linear-gradient(to right, rgba(0,0,0,0)10%, #000 30%);
+  top: 38.3%;
+  right: -10%;
+ }
+.container {
+  width: 466px;
+  height: 512px;
+  margin: 42px auto 8px auto;
+  display: grid;
+  grid-template: repeat(31, 16.5px) /repeat(28, 16.6px);
+  background-image: url('assets/img/pacman-board.png');
+  background-size:100%;
+  background-repeat: no-repeat;
+}
+.ghost, .ghostBase{
+  opacity: 1;
+  overflow: visible;
+}
+img:nth-of-type(2),
+img:nth-of-type(3),
+img:nth-of-type(4){
+  visibility: hidden;
+}
+
+.ghost img, .ghostBase img{
+  transform: translate(-4px, -4px);
+  width: 22px;
+  height: 22px;
+}
+.empty.pacman{
+  background-size: 16px 15.4px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+.pacman-left{
+  background-image: url('assets/img/pacman-left.gif');
+}
+.pacman-right{
+  background-image: url('assets/img/pacman-right.gif');
+}
+.pacman-up{
+  background-image: url('assets/img/pacman-up.gif');
+}
+.pacman-down{
+  background-image: url('assets/img/pacman-down.gif');
+}
+.pacman::after{
+  content:' ';
+  color: rgb(0, 211, 197);
+  position: relative;
+  top: -13.4px;
+  right: -19.2px;
+  font-size: 1rem;
+}
+.dot{
+  background-image: url('assets/img/dot-pacman.png');
+  background-size: 10px 10px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.big-dot{
+  background-image: url('assets/img/dot-pacman.png');
+  background-size: 23px 23px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+ .gameOn, .gameover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gameover {
+  flex-direction: column;
+  display: none;
+}
+.blink{
+  filter: grayscale(100%) invert(100%);
+}
+
+h1{
+  padding: 20px;
+  color: yellow;
+  font-size: 2rem;
+}
+h2{
+  padding: 20px;
+  color: #fff;
+  font-size: 2rem;
+}
+p{
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  font-size: 2rem;
+}
+img{
+  width:100%;
+}
+.preload{
+  display: none;
+}
