@@ -1,4 +1,4 @@
-import { config } from "./config.js"; 
+import { config } from "./config.js";
 
 class GameMap {
     constructor(screenWidth, screenHeight) {
@@ -12,27 +12,24 @@ class GameMap {
     }
 
     renderMap(map) {
-        // Очищаем экран
         const svgMap = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgMap.classList.add('map');
         svgMap.setAttribute("width", this.cellSize * map[0].length);
         svgMap.setAttribute("height", this.cellSize * map.length);
         this.mapDiv.appendChild(svgMap);
 
-        // Создаем группу для ячеек карты
         const cellsGroupMap = document.createElementNS("http://www.w3.org/2000/svg", "g");
         cellsGroupMap.classList.add('cells');
         svgMap.appendChild(cellsGroupMap);
 
-        // Создаем прямоугольники и круги для каждой ячейки
         for (let i = 0; i < map.length; i++) {
             const row = map[i];
             for (let j = 0; j < row.length; j++) {
                 const cell = row[j];
                 const x = j * this.cellSize;
                 const y = i * this.cellSize;
-                
-                switch(cell){
+
+                switch (cell) {
                     case 0: // 'wall'
                         const cellElementWall = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                         cellElementWall.setAttribute("class", `cell ${config.object[cell]}`);
@@ -53,7 +50,6 @@ class GameMap {
                         cellsGroupMap.appendChild(cellElementDot);
                         break;
                     case 2: // 'empty'
-                        // Ничего не делаем для пустой ячейки
                         break;
                     case 4: // 'coin'
                         const cellElementCoin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -71,7 +67,6 @@ class GameMap {
     }
 }
 
-// Создаем экземпляр класса и отображаем карту игры
 const LevelRenderer = new GameMap(window.innerWidth, window.innerHeight);
 LevelRenderer.renderMap(config.map);
 

@@ -1,40 +1,31 @@
-function calculateNextMove(ghostPosition, pacManPosition) {
-    // Calculate the horizontal and vertical distances between the ghost and Pac-Man
-    const horizontalDistance = pacManPosition.x - ghostPosition.x;
-    const verticalDistance = pacManPosition.y - ghostPosition.y;
+function calculateNextMove(ghostPos, pacManPos) {
+    const horizontalDist = pacManPos.x - ghostPos.x; // Calculate horizontal distance between ghost and Pac-Man
+    const verticalDist = pacManPos.y - ghostPos.y; // Calculate vertical distance between ghost and Pac-Man
 
-    // Check for collision
-    if (horizontalDistance === 0 && verticalDistance === 0) {
-        // Handle collision here
-        // For example, decrease life or end the game
-        decreaseLife(); // Call a function to decrease life
-        endGame(); // Call a function to end the game
+    if (horizontalDist === 0 && verticalDist === 0) {
+        handleCollision(); // If ghost and Pac-Man are at the same position, handle collision
     }
 
-    // Determine the direction to move based on the distances
-    if (Math.abs(horizontalDistance) > Math.abs(verticalDistance)) {
-        // Move horizontally towards Pac-Man
-        if (horizontalDistance > 0) {
-            return 'right';
-        } else {
-            return 'left';
-        }
-    } else if (Math.abs(horizontalDistance) < Math.abs(verticalDistance)) {
-        // Move vertically towards Pac-Man
-        if (verticalDistance > 0) {
-            return 'down';
-        } else {
-            return 'up';
-        }
+    if (Math.abs(horizontalDist) > Math.abs(verticalDist)) {
+        return horizontalDist > 0 ? 'right' : 'left'; // If horizontal distance is greater, move right if positive, left if negative
+    } else if (Math.abs(horizontalDist) < Math.abs(verticalDist)) {
+        return verticalDist > 0 ? 'down' : 'up'; // If vertical distance is greater, move down if positive, up if negative
     } else {
-        // Randomize the direction when distances are equal
-        const randomDirection = Math.random() < 0.5 ? 'left' : 'up';
-        return randomDirection;
+        return getRandomDirection(); // If distances are equal, choose a random direction
     }
 }
 
-// Example usage
-const ghostPosition = { x: 2, y: 3 };
-const pacManPosition = { x: 2, y: 3 }; // Simulating collision
-const nextMove = calculateNextMove(ghostPosition, pacManPosition);
-console.log('Next move:', nextMove);
+function handleCollision() {
+    decreaseLife(); // Decrease life when collision occurs
+    endGame(); // End the game
+}
+
+function getRandomDirection() {
+    return Math.random() < 0.5 ? 'left' : 'up'; // Return a random direction (left or up)
+}
+
+
+const ghostPos = { x: 2, y: 3 }; // Ghost position
+const pacManPos = { x: 2, y: 3 }; // Pac-Man position
+const nextMove = calculateNextMove(ghostPos, pacManPos); // Calculate the next move for the ghost
+console.log('Next move:', nextMove); // Output the next move to the console
