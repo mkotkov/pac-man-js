@@ -15,6 +15,7 @@ class Pacman {
         this.startAnimation();
     }
 
+    // Animate the Pacman's mouth opening and closing
     animate(timestamp) {
         if (!this.lastTimestamp) this.lastTimestamp = timestamp;
         const deltaTime = timestamp - this.lastTimestamp;
@@ -26,6 +27,7 @@ class Pacman {
         requestAnimationFrame((timestamp) => this.animate(timestamp));
     }
 
+    // Animate the Pacman's mouth opening and closing
     animateMouth(timestamp) {
         if (!this.lastTimestamp) this.lastTimestamp = timestamp;
         const deltaTime = timestamp - this.lastTimestamp;
@@ -45,6 +47,7 @@ class Pacman {
         }
     }
 
+    // Render the Pacman SVG and its components
     render() {
         const svgPacman = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgPacman.classList.add('pacman');
@@ -122,6 +125,7 @@ class Pacman {
         }
     }
 
+    // Start the animation loop
     startAnimation() {
         const animateFrame = (timestamp) => {
             this.animateMouth(timestamp);
