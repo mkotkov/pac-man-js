@@ -579,7 +579,7 @@ class Ghost extends Character {
       }
       let img = document.createElement('img');
       img.id = this.name;
-      img.src = "assets/img/ghost.png";
+      img.src = "assets/img/ghost.svg";
       this.tile.innerHTML = '';
       this.tile.appendChild(img);
       this.ghostmode = true;
@@ -603,7 +603,7 @@ class Ghost extends Character {
     this.tile.innerHTML = '';
     let img = document.createElement('img');
     img.id = this.name;
-    img.src = `assets/img/${this.name}.png`;
+    img.src = `assets/img/${this.name}.svg`;
     this.tile.appendChild(img);
     this.ghostmode = false;
   }
@@ -721,7 +721,7 @@ function backtoBase(ghost){
   clearInterval(ghost.interval);
   let img = document.createElement('img');
   img.id = ghost.name;
-  img.src = `assets/img/${ghost.name}.png`;
+  img.src = `assets/img/${ghost.name}.svg`;
   ghost.tile.classList.add('ghostBase');
   ghost.tile.appendChild(img);
   setTimeout(() => {

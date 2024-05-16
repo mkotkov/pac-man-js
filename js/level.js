@@ -14,7 +14,7 @@ const createGameLevel = () =>{
     'assets/img/pacman-right.gif',
     'assets/img/pacman-up.gif',
     'assets/img/pacman-down.gif',
-    'assets/img/ghost.png'
+    'assets/img/ghost.svg'
   ];
   preloadImages.forEach(src => {
     const img = document.createElement('img');
@@ -27,12 +27,6 @@ const createGameLevel = () =>{
 const gameDiv = document.createElement('div');
 gameDiv.className = 'game';
 
-// shade in gameDiv
-for (let i = 0; i < 2; i++) {
-  const shade = document.createElement('div');
-  shade.className = 'shade';
-  gameDiv.appendChild(shade);
-}
 
 // container in gameDiv
 const  container = document.createElement('div');
@@ -51,7 +45,7 @@ divGameOver.className = 'gameover';
 const h1 = document.createElement('h1');
 h1.textContent = "GAME OVER";
 const h2 = document.createElement('h2');
-h2.textContent = "Press &lt;space&gt; to restart";
+h2.textContent = "Press 'Space' to restart";
 divGameOver.appendChild(h1);
 divGameOver.appendChild(h2);
 
@@ -89,6 +83,8 @@ divHighScore.appendChild(highScoreP);
 body.appendChild(gameDiv);
 body.appendChild(divOnOrOver);
 body.appendChild(divHighScore);
+
+
 }
 createGameLevel(); 
 
@@ -112,6 +108,7 @@ const numerote = () => {
         column = 0;
       }
     }
+    
 }
   
 // Function to initialize the game board
@@ -128,7 +125,7 @@ const initBoard = board =>{
           currentTile.className = 'empty portal';
           break;
           case 0: // 0 is a dot
-          currentTile.className = 'dot empty';
+          currentTile.className = 'dot empty';         
             break;
           case 8: // 8 is a big dot
           currentTile.className = 'big-dot dot empty';
@@ -141,28 +138,28 @@ const initBoard = board =>{
             break;
           case 'R': //R is red (blinky)
             let blinky = document.createElement('img');
-            blinky.src = "assets/img/blinky.png";
+            blinky.src = "assets/img/blinky.svg";
             blinky.id = 'blinky';
             currentTile.className = 'empty ghost blinky';
             currentTile.appendChild(blinky);
             break;
           case 'B': //B is blue (inky)
             let inky = document.createElement('img');
-            inky.src = "assets/img/inky.png";
+            inky.src = "assets/img/inky.svg";
             inky.id = 'inky';
             currentTile.className = 'empty ghost inky inkyInitial';
             currentTile.appendChild(inky);
             break;
           case 'Pi': //P is pink (pinky)
             let pinky = document.createElement('img');
-            pinky.src = "assets/img/pinky.png";
+            pinky.src = "assets/img/pinky.svg";
             pinky.id = 'pinky';
             currentTile.className = 'empty ghost pinky';
             currentTile.appendChild(pinky);
             break;
           case 'O': //O is orange (clyde)
             let clyde = document.createElement('img');
-            clyde.src = "assets/img/clyde.png";
+            clyde.src = "assets/img/clyde.svg";
             clyde.id = 'clyde';
             currentTile.className = 'empty ghost clyde';
             currentTile.appendChild(clyde);
@@ -171,5 +168,7 @@ const initBoard = board =>{
       }
     }
 }  
+
+
 
 export {initBoard, numerote};
