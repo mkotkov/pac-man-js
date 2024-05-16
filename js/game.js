@@ -25,6 +25,8 @@ let blinky;
 let inky;
 let pinky;
 let clyde;
+let paused = false;
+
 pacman = null;
 blinky = null;
 inky = null;
@@ -732,7 +734,52 @@ function backtoBase(ghost){
   if (!blinky.ghostmode && !inky.ghostmode && !pinky.ghostmode && !clyde.ghostmode){
     pacman.numberEaten = 1;
   }
+
 }
+
+function togglePause() {
+  paused = !paused;
+  if (paused) {
+    // Остановите анимацию для всех персонажей и очистите интервалы
+    cancelAnimationFrame(pacman.animation);
+    cancelAnimationFrame(blinky.animation);
+    cancelAnimationFrame(inky.animation);
+    cancelAnimationFrame(pinky.animation);
+    cancelAnimationFrame(clyde.animation);
+    clearInterval(blinky.interval);
+    clearInterval(inky.interval);
+    clearInterval(pinky.interval);
+    clearInterval(clyde.interval);
+    clearTimeout(timeoutPinky);
+    clearTimeout(timeoutInky);
+    clearTimeout(timeoutClyde);
+    clearTimeout(blinky.offTimeout);
+    clearTimeout(inky.offTimeout);
+    clearTimeout(pinky.offTimeout);
+    clearTimeout(clyde.offTimeout);
+    clearTimeout(blinky.blinkTimeout);
+    clearTimeout(inky.blinkTimeout);
+    clearTimeout(pinky.blinkTimeout);
+    clearTimeout(clyde.blinkTimeout);
+    // Дополнительные действия при паузе, если это нужно
+  } else {
+    // Возобновите анимацию и движение персонажей
+    pacman.animate();
+    blinky.move();
+    inky.move();
+    pinky.move();
+    clyde.move();
+    // Дополнительные действия при возобновлении игры, если это нужно
+  }
+}
+
+
+
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode === 32) { // Код клавиши пробела
+    togglePause();
+  }
+});
 
 document.addEventListener('keydown', keydownHandler);
 initCharacters();
