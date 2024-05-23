@@ -73,7 +73,8 @@ const config = {
     game: true,
     level: 1,
     levelUp: false,
+    countdown: 120,
 };
 
-export default config;
+export default config; 
   

@@ -2,6 +2,7 @@ import {initBoard, numerote} from './level.js';
 import config from './config.js';
 
 const { initialBoard, board, gridWidth, gridHeight} = config;
+let {countdown}=config;
 
 /*
  * Coordinates of the ghosts and Pac-Man on the board:
@@ -21,6 +22,8 @@ let game = true;
 let level = 1;
 let levelUp = false;
 let paused = false;
+let countdownInterval;
+let remainingTime = countdown;
 
 let pacman = null;
 let blinky = null;
@@ -33,11 +36,13 @@ let timeoutInky = null;
 let timeoutClyde = null;
 
 const scoreNode = document.querySelector('.score__number');
+const countdownNode =  document.querySelector('.countdown');
 const livesNode = document.querySelector('.lives');
 const pauseNode = document.querySelector('.pause');
 const gameoverNodes = document.querySelector('.gameover');
 const gameOnNodes = document.querySelector('.gameOn');
 const highScoreNode = document.querySelector('.highScore');
+const timeNode = document.querySelector('.time');
 const styleElem = document.head.appendChild(document.createElement('style'));
 
 
@@ -643,16 +648,17 @@ function initCharacters () {
   clyde = new Ghost('clyde',document.querySelector('.clyde'),14,15, 13, false);
 }
 
-function startMoving(){
-    reset = false;
-    pacman.move();
-    blinky.move();
-    timeoutPinky = setTimeout(() => pinky.outOfBase(), 1000);
-    timeoutInky = setTimeout(() => {
-      inky.outOfBase();
-      document.getElementById('inky').classList.remove('inkyInitial');
-    }, 8000);
-    timeoutClyde = setTimeout(() => clyde.outOfBase(), 15000);
+function startMoving() {
+  reset = false;
+  pacman.move();
+  blinky.move();
+  timeoutPinky = setTimeout(() => pinky.outOfBase(), 1000);
+  timeoutInky = setTimeout(() => {
+    inky.outOfBase();
+    document.getElementById('inky').classList.remove('inkyInitial');
+  }, 8000);
+  timeoutClyde = setTimeout(() => clyde.outOfBase(), 15000);
+  startCountdown();
 }
 
 function keydownHandler(e){
@@ -676,7 +682,7 @@ function keydownHandler(e){
     }
   }
   else {
-    if (e.keyCode === 32){
+    if (e.keyCode === 13){
       initBoard(board);
       level = 1;
       score = 0;
@@ -757,6 +763,7 @@ function togglePause() {
     clearTimeout(inky.blinkTimeout);
     clearTimeout(pinky.blinkTimeout);
     clearTimeout(clyde.blinkTimeout);
+    clearInterval(countdownInterval);
 
     pauseNode.style.display = 'block';
   } else {
@@ -766,6 +773,7 @@ function togglePause() {
     pinky.move();
     clyde.move();
     pauseNode.style.display = 'none';
+    startCountdown();
   }
 }
 
@@ -782,3 +790,37 @@ let highScore = parseInt(localStorage.getItem("highScore"));
 if (highScore){
   highScoreNode.innerHTML = highScore;
 }
+
+ // Countdown function
+function startCountdown() {
+  resetCountdown();
+  countdownNode.style.display = 'flex';
+    countdownInterval = setInterval(() => {
+    remainingTime--;
+    timeNode.textContent = remainingTime;
+    if (remainingTime <= 0) {
+      clearInterval(countdownInterval);
+      game = false;
+      let highScore = parseInt(localStorage.getItem("highScore"));
+      if (!highScore || score >= highScore){
+        highScoreNode.innerHTML = score;
+        localStorage.setItem('highScore', score);
+      }
+      for (let i=0 ; i < board.length; i++){
+        board[i] = initialBoard[i].slice();
+      }
+      gameOnNodes.style.display = 'none';
+      countdownNode.style.display = 'none';
+      gameoverNodes.style.display = 'flex';
+      resetPositions();
+      }
+  }, 1000);
+}
+
+const resetCountdown = () => {
+  clearInterval(countdownInterval);
+  remainingTime = countdown;
+  timeNode.textContent = remainingTime;
+};
+
+resetCountdown();

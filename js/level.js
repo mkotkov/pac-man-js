@@ -1,6 +1,7 @@
 import config from './config.js';
 
 const {gridWidth, gridHeight} = config;
+let {countdown} = config;
 
 // Create game level elements
 const createGameLevel = () => {
@@ -101,8 +102,21 @@ menu.appendChild(buttonRestart);
 divPause.appendChild(menu);
 divPause.appendChild(cover);
 
+
+
+const countdownP = document.createElement('p');
+countdownP.className = "countdown"
+countdownP.textContent = "Time: ";
+const spanTime = document.createElement('span');
+spanTime.className = 'time';
+spanTime.textContent = countdown;
+countdownP.style.display = 'block';
+countdownP.appendChild(spanTime);
+
+
 body.appendChild(divPause);
 body.appendChild(gameDiv);
+body.appendChild(countdownP);
 body.appendChild(divOnOrOver);
 body.appendChild(divHighScore);
 };
