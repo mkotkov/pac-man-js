@@ -20,18 +20,13 @@ let reset = true;
 let game = true;
 let level = 1;
 let levelUp = false;
-let pacman;
-let blinky;
-let inky;
-let pinky;
-let clyde;
 let paused = false;
 
-pacman = null;
-blinky = null;
-inky = null;
-pinky = null;
-clyde = null;
+let pacman = null;
+let blinky = null;
+let inky = null;
+let pinky = null;
+let clyde = null;
 
 let timeoutPinky = null;
 let timeoutInky = null;
@@ -741,7 +736,6 @@ function backtoBase(ghost){
 function togglePause() {
   paused = !paused;
   if (paused) {
-    // Остановите анимацию для всех персонажей и очистите интервалы
     cancelAnimationFrame(pacman.animation);
     cancelAnimationFrame(blinky.animation);
     cancelAnimationFrame(inky.animation);
@@ -765,7 +759,6 @@ function togglePause() {
     clearTimeout(clyde.blinkTimeout);
 
     pauseNode.style.display = 'block';
-    // Дополнительные действия при паузе, если это нужно
   } else {
     pacman.animate();
     blinky.move();
@@ -775,7 +768,6 @@ function togglePause() {
     pauseNode.style.display = 'none';
   }
 }
-
 
 
 document.addEventListener('keydown', function(e) {
