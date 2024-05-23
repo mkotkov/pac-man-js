@@ -39,6 +39,7 @@ let timeoutClyde = null;
 
 const scoreNode = document.querySelector('.score__number');
 const livesNode = document.querySelector('.lives');
+const pauseNode = document.querySelector('.pause');
 const gameoverNodes = document.querySelector('.gameover');
 const gameOnNodes = document.querySelector('.gameOn');
 const highScoreNode = document.querySelector('.highScore');
@@ -750,6 +751,7 @@ function togglePause() {
     clearInterval(inky.interval);
     clearInterval(pinky.interval);
     clearInterval(clyde.interval);
+    clearTimeout(timeoutInky);
     clearTimeout(timeoutPinky);
     clearTimeout(timeoutInky);
     clearTimeout(timeoutClyde);
@@ -761,22 +763,23 @@ function togglePause() {
     clearTimeout(inky.blinkTimeout);
     clearTimeout(pinky.blinkTimeout);
     clearTimeout(clyde.blinkTimeout);
+
+    pauseNode.style.display = 'block';
     // Дополнительные действия при паузе, если это нужно
   } else {
-    // Возобновите анимацию и движение персонажей
     pacman.animate();
     blinky.move();
     inky.move();
     pinky.move();
     clyde.move();
-    // Дополнительные действия при возобновлении игры, если это нужно
+    pauseNode.style.display = 'none';
   }
 }
 
 
 
 document.addEventListener('keydown', function(e) {
-  if (e.keyCode === 32) { // Код клавиши пробела
+  if (e.keyCode === 32) { 
     togglePause();
   }
 });

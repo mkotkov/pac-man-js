@@ -1,73 +1,86 @@
+/* Define a custom font */
 @font-face {
   font-family: 'ArcadeClassic';
   src: url('assets/ArcadeClassic.woff2') format('woff2'),
-      url('assets/ArcadeClassic.woff') format('woff');
+       url('assets/ArcadeClassic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
-body{
+/* Style for the body */
+body {
   font-family: 'ArcadeClassic';
   letter-spacing: .1rem;
-  background-color:rgb(18, 17, 34);
+  background-color: rgb(18, 17, 34);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+/* Style for the game container */
 .game {
   position: relative;
   width: fit-content;
   background-color: rgb(18, 17, 34);
 }
 
+/* Style for the game grid container */
 .container {
   width: 466px;
   height: 512px;
   margin: 42px auto 8px auto;
   display: grid;
-  grid-template: repeat(31, 16.5px) /repeat(28, 16.6px);
-  background-size:100%;
+  grid-template: repeat(31, 16.5px) / repeat(28, 16.6px);
+  background-size: 100%;
   background-repeat: no-repeat;
 }
-.ghost, .ghostBase{
+
+/* Style for the ghost elements */
+.ghost, .ghostBase {
   opacity: 1;
   overflow: visible;
 }
 
+/* Hide certain images */
 img:nth-of-type(2),
 img:nth-of-type(3),
-img:nth-of-type(4){
+img:nth-of-type(4) {
   visibility: hidden;
 }
 
-.ghost img, .ghostBase img{
+/* Style for ghost images */
+.ghost img, .ghostBase img {
   transform: translate(-4px, -4px);
   width: 35px;
   height: 30px;
 }
 
-.empty.pacman{
+/* Style for the Pacman container */
+.empty.pacman {
   background-size: 16px 15.4px;
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
 }
 
-.pacman-left{
+/* Background images for Pacman in different directions */
+.pacman-left {
   background-image: url('assets/img/pacman-left.gif');
 }
-.pacman-right{
+.pacman-right {
   background-image: url('assets/img/pacman-right.gif');
 }
-.pacman-up{
+.pacman-up {
   background-image: url('assets/img/pacman-up.gif');
 }
-.pacman-down{
+.pacman-down {
   background-image: url('assets/img/pacman-down.gif');
 }
-.pacman::after{
-  content:' ';
+
+/* Style for Pacman text */
+.pacman::after {
+  content: ' ';
   color: rgb(0, 211, 197);
   position: relative;
   top: -13.4px;
@@ -75,56 +88,131 @@ img:nth-of-type(4){
   font-size: 1rem;
 }
 
-.dot{
+/* Style for dots */
+.dot {
   background-image: url('assets/img/dot-pacman.svg');
   background-size: 10px 10px;
   background-position: center center;
   background-repeat: no-repeat;
 }
 
-.big-dot{
+/* Style for big dots */
+.big-dot {
   background: url('assets/img/dot-big-pacman.svg');
   background-position: center center;
   background-repeat: no-repeat;
 }
 
-
- .gameOn, .gameover{
+/* Styles for game status containers */
+.gameOn, .gameover {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* Style for game over screen */
 .gameover {
   flex-direction: column;
   display: none;
 }
-.blink{
+
+/* Style for blinking elements */
+.blink {
   filter: grayscale(100%) invert(100%);
 }
 
-h1{
+/* Style for headings */
+h1 {
   padding: 20px;
   color: yellow;
   font-size: 2rem;
 }
-h2{
+h2 {
   padding: 20px;
   color: #fff;
   font-size: 2rem;
 }
-p{
+
+/* Style for paragraphs */
+p {
   text-align: center;
   padding: 20px;
   color: #fff;
   font-size: 2rem;
 }
-img{
-  width:100%;
+
+/* Style for images */
+img {
+  width: 100%;
 }
-.preload{
+
+/* Style for preload container */
+.preload {
   display: none;
 }
 
-.wall{
+/* Style for wall elements */
+.wall {
   background-color: #5590f0;
+}
+
+/* Style for pause screen */
+.pause {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style for pause menu */
+.pause-menu {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 3px solid rgb(11, 112, 245);
+  top: 50%; /* for vertical centering */
+  left: 50%; /* for horizontal centering */
+  transform: translate(-50%, -50%); /* adjust offset */
+  background-color: rgb(9, 6, 49);
+  box-shadow: 0 5px 50px 0 rgb(31, 103, 228);
+  padding: 50px;
+  z-index: 9999; /* ensure it's above other elements */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style for pause menu cover */
+.cover {
+  display: flex;
+  position: fixed;
+  background-color: rgb(7, 19, 59);
+  opacity: 70%;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style for buttons */
+button {
+  display: flex;
+  cursor: pointer;
+  font-family: 'ArcadeClassic';
+  letter-spacing: .1rem;
+  background-color: rgb(7, 19, 59);
+  color: white;
+  padding: 5px;
+  margin: 10px;
+  transition: 0.5s;
+}
+
+/* Style for button hover state */
+button:hover {
+  background-color: rgb(17, 13, 63);
+  transform: translate(0, -3px);
+  box-shadow: 0 20px 40px 0 rgba(11, 99, 246, 1);
+}
+
+/* Style for continue text */
+p.continue {
+  font-size: 1.5rem;
 }

@@ -1,6 +1,6 @@
 import config from './config.js';
 
-const {gridWidth} = config;
+const {gridWidth, gridHeight} = config;
 
 // Create game level elements
 const createGameLevel = () => {
@@ -30,7 +30,7 @@ const createGameLevel = () => {
   // Create container div in gameDiv
   const container = document.createElement('div');
   container.className = 'container';
-  for (let i = 0; i < 868; i++) {
+  for (let i = 0; i < gridWidth*gridHeight; i++) {
     const div = document.createElement('div');
     container.appendChild(div);
   }
@@ -78,9 +78,33 @@ const createGameLevel = () => {
   highScoreSpan.className = 'highScore';
   highScoreP.appendChild(highScoreSpan);
   divHighScore.appendChild(highScoreP);
+  const divPause = document.createElement('div');
 
-  body.appendChild(divOnOrOver);
-  body.appendChild(divHighScore);
+divPause.className = 'pause';
+const menu = document.createElement('div');
+menu.className = 'pause-menu';
+const title = document.createElement('h1');
+title.textContent = "Pause";
+const next = document.createElement('p');
+next.className = 'continue'
+next.textContent = " press 'space' to continue";
+const buttonRestart = document.createElement('button');
+buttonRestart.textContent = "Restart";
+buttonRestart.addEventListener('click', () => {
+  location.reload();
+});
+const cover = document.createElement('div');
+cover.className = 'cover';
+menu.appendChild(title);
+menu.appendChild(next);
+menu.appendChild(buttonRestart);
+divPause.appendChild(menu);
+divPause.appendChild(cover);
+
+body.appendChild(divPause);
+body.appendChild(gameDiv);
+body.appendChild(divOnOrOver);
+body.appendChild(divHighScore);
 };
 createGameLevel(); 
 

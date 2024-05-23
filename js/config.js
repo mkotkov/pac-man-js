@@ -66,7 +66,7 @@ const config = {
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
 
     gridWidth: 27,
-    gridHeight: 30,
+    gridHeight: 33,
     score: 0,
     lives: 3,
     reset: true,
