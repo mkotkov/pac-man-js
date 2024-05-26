@@ -751,6 +751,7 @@ function togglePause() {
     clearInterval(inky.interval);
     clearInterval(pinky.interval);
     clearInterval(clyde.interval);
+    clearInterval(countdownInterval);
     clearTimeout(timeoutInky);
     clearTimeout(timeoutPinky);
     clearTimeout(timeoutInky);
@@ -764,7 +765,6 @@ function togglePause() {
     clearTimeout(pinky.blinkTimeout);
     clearTimeout(clyde.blinkTimeout);
     clearInterval(countdownInterval);
-
     pauseNode.style.display = 'block';
   } else {
     pacman.animate();
@@ -793,7 +793,6 @@ if (highScore){
 
  // Countdown function
 function startCountdown() {
-  resetCountdown();
   countdownNode.style.display = 'flex';
     countdownInterval = setInterval(() => {
     remainingTime--;
@@ -813,6 +812,7 @@ function startCountdown() {
       countdownNode.style.display = 'none';
       gameoverNodes.style.display = 'flex';
       resetPositions();
+      resetCountdown();
       }
   }, 1000);
 }
