@@ -3,7 +3,7 @@ Welcome to the Make Your Game project! In this project, we will create a game us
 
 ## Guideline to run the application
 To run the application, follow these steps:
-  1. Clone this repository telling the computer `git clone https://01.kood.tech/git/mkotkov/make-your-game`.
+  1. Clone this repository by telling the computer `git clone https://01.kood.tech/git/mkotkov/make-your-game`.
   2. Install [the Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
   3. Right click or control+click on `index.html` and select `Open with Live Server`.
   4. The game will start in via the default browser, and you can pause the game by pressing the `space` bar.
