@@ -1,5 +1,5 @@
 # Make Your Game
-Welcome to the Make Your Game project! In this project, we will create a game using JavaScript and HTML, without relying on any frameworks, canvas, WebGL, etc.
+Welcome to the PAC-MAN! In this project, we will create a game using JavaScript and HTML, without relying on any frameworks, canvas, WebGL, etc.
 
 ## Guideline to run the application
 To run the application, follow these steps:
