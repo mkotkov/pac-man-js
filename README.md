@@ -1,4 +1,4 @@
-# Make Your Game
+# PAC-MAN
 Welcome to the PAC-MAN! In this project, we will create a game using JavaScript and HTML, without relying on any frameworks, canvas, WebGL, etc.
 
 ## Guideline to run the application
